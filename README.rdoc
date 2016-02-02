@@ -1,28 +1,20 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ 
+Målet med detta miniprov är att få ut en diskussiongrund för en framtida teknisk konversation. 
 
-Things you may want to cover:
+Så snart du emottagit denna text, svara till mig med hur många dagar du vill ha till uppgiften, alltså vilken deadline du vill ge dig själv.
 
-* Ruby version
+Provet består av att implementera en liten webbtjänst som fungerar som en väldigt enkel Att Göra lista. Valet av språk, ramverk och liknande är helt upp till dig. Det färdiga provet skickar du tillbaka till oss i en ZIP, med källkod, eventuell körbar fil och med en README-fil. I READMEn inkluderar du instruktioner hur vi kan konfigurera och starta upp din webbtjänst, i samma fil kan du beskriva saker i din lösning som du är extra stolt över.
 
-* System dependencies
+Vi förväntar oss inte att tjänsten ska vara felfri, men vi kommer testa den, utvärdera koden (både back en docs front end) bakom och hur väl du satt ihop tjänsten.
 
-* Configuration
+Tjänstens huvudvy ska lista de punkter som finns inlagda.
 
-* Database creation
+I övrigt ska det i tjänsten gå att:
+                      • Skapa en ny punkt.
+                      • Markera en punkt som färdig.
+                      • Ta bort en punkt.
+                      • Ändra en punkt.
+Punkterna ska sparas ner så att om man t.ex. startar om tjänsten eller byter webbläsare så får man tillbaks sina punkter.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.

@@ -1,0 +1,26 @@
+{
+  "name": "todo",
+  "authors": [
+    "Orri Gautur <orrigautur@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ],
+  "dependencies":{
+    "backbone": "~ 1.2.3",
+    "marionette" :"~2.4.4"
+  }
+}
