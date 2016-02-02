@@ -13,5 +13,28 @@
 //= require jquery
 //= require underscore
 //= require backbone
+//= require backbone.babysitter
+//= require backbone.wreqr
 //= require marionette
-//= require_tree .
+//= require ./app/app
+//= require_tree ./app
+
+var RootApp = RootApp || {};
+
+$(function () {
+  'use strict';
+  
+  RootApp.App.on('start', function () {
+    
+    var controller = new RootApp.Controller();
+    controller.router = new RootApp.Router({
+      controller: controller
+    });
+    
+    controller.init();
+    Backbone.history.start();
+  
+  });
+
+  RootApp.App.start();
+});

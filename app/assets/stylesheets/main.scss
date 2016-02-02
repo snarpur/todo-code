@@ -1,0 +1,39 @@
+// Place all the styles related to the hey controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#header{
+  margin-top: 5rem;
+  margin-bottom: 10rem;
+}
+
+#footer{
+  background-color: #fafafa;
+}
+
+#main{
+  border: solid 1px #555;
+}
+
+#list{
+  background-color: #fafafa;
+}
+.item-edit,
+.item-delete{
+  visibility: hidden;
+}
+a.item-delete{
+  float: left;
+  text-decoration: none;
+  color: floralWhite;
+  background-color: tomato;
+  padding: 1rem;
+}
+.item-ctrl a{ 
+  margin-right: .1rem;
+}
+
+#list .row:hover .item-edit,
+#list .row:hover .item-delete{
+ visibility: visible;
+}

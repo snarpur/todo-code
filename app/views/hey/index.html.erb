@@ -1,2 +1,28 @@
-<h2>hey man, oh leave me alone </h2>
-<p>The time is now: <%= Time.now %></p>
+<script type="text/html" id="new-task-template">
+<form>
+  <div class="row">
+    <div class="six columns">
+      <input name="title" class="u-full-width tapp-input" type="text" placeholder=" <%= getJs('placeHolder')  %>" >
+    </div>
+    <div class="two columns">
+      <input class="button-primary save-button" type="button" value="Put it on the list!">
+    </div>
+    
+  </form>
+</script>
+
+<script type="text/html"  id="task-item-view">
+    <div class="one columns">
+      <a href="#" class="item-delete">x</a>
+    </div>
+    <div class="nine columns">
+      <h4><%= getJs('title')%></h4>
+    </div>
+    <div class="one columns item-ctrl">
+      <a href="#" class="item-edit">Edit</button>
+    </div>
+</script>
+
+<script type="text/html"  id="task-collection-view">
+<ul></ul>
+</script>

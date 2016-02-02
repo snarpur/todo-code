@@ -2,13 +2,30 @@
 <html>
 <head>
   <title>Todo</title>
-  <%= stylesheet_link_tag    'application', media: 'all'%>
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'application', media: 'all'%>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container" id="task-app">
+    <div class="row" id="header">
+      <h1>the devil finds work for idle hands</h1>
+    </div>
+
+    <div class="row" id="form">
+      
+    </div>
+    <div class="row" id="list">
+      
+    </div>
+
+    <div class="row" id="footer">
+      
+    </div>
+    
+  </div>
 
 <%= yield %>
-
+  <%= javascript_include_tag 'application' %>
 </body>
 </html>
