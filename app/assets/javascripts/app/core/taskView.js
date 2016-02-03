@@ -39,12 +39,18 @@ var RootApp = RootApp|| {};
         else{
           return "row status-completed";
         }
-        
     },
+    
+    attributes:{
+      "data-edit-mode": "off"
+    },
+        
+ 
     ui: {
       itemDelete: ".item-delete",
       itemEdit: ".item-edit", 
-      itemComplete: ".item-complete" 
+      itemComplete: ".item-complete" ,
+      editTitle: "input[name='title']"
     },
 
     triggers:{
@@ -53,12 +59,23 @@ var RootApp = RootApp|| {};
       "click @ui.itemComplete": "item:complete"
     },
 
+    events:{
+      "keydown @ui.editTitle": "onEditKeyPress"
+    },
+
     modelEvents:{
       "sync": "modelSynced"
     },
 
+    initialize: function(){
+      this.listenTo(this.model.collection,"edit:mode:on", function(eventArgs){
+        var view = eventArgs.view;
+        if(view.cid != this.cid && this.getEditMode() == "on")
+          this.setEditMode(false);
+      })
+    },
+    
     modelSynced: function(){
-      console.log("syncing model")
       this.trigger("model:synced");
     },
     
@@ -67,6 +84,35 @@ var RootApp = RootApp|| {};
         return '0' + number;
       }
       return number;
+    },
+
+    onItemEdit: function(e){
+      this.setEditMode(true);
+    },
+
+    onEditKeyPress: function(e){
+      var ENTER_KEY = 13;
+      var ESC_KEY = 27;
+
+      if (e.which === ENTER_KEY) {
+        this.model.set("title", this.ui.editTitle.val());
+        this.trigger("update:item",{view: this});
+        return;
+      }
+
+      if (e.which === ESC_KEY) {
+        this.ui.editTitle.val(this.model.get('title'));
+        this.setEditMode(false);
+      }
+    },
+
+    setEditMode: function(state){
+      var mode = state ? "on" : "off";
+      this.$el.attr("data-edit-mode", mode);
+    },
+
+    getEditMode: function(){
+        return this.$el.attr("data-edit-mode");
     },
 
     onItemComplete: function(){
@@ -84,16 +130,14 @@ var RootApp = RootApp|| {};
   RootApp.TaskCollectionView = Backbone.Marionette.CollectionView.extend({
     collection: RootApp.TaskCollection,
     childView: RootApp.TaskItemView,
-    childEvents: {
-    'model:synced': 'onChildViewModelSynced'
+
+  childEvents: {
+      "model:synced": "onChildViewModelSynced"
     },
     
-    onChildViewModelSynced: function(){
+    onChildViewModelSynced: function(eventArgs){
       this.render();
-    },
-
-
-
+    }
 
   });
 

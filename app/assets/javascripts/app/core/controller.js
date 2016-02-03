@@ -32,8 +32,8 @@ RootApp.Controller = Backbone.Marionette.Object.extend({
     var emptyTask = new RootApp.TaskModel();
     var emptyTaskView = new RootApp.NewTaskView({model: emptyTask});
     
-    RootApp.App.root.showChildView("form", emptyTaskView);;
-    this.listenTo(emptyTaskView, "click:save", this.saveTask)
+    RootApp.App.root.showChildView("form", emptyTaskView);
+    this.listenTo(emptyTaskView, "click:save", this.saveTask);
   
   },
 
@@ -49,8 +49,12 @@ RootApp.Controller = Backbone.Marionette.Object.extend({
 
   },
 
-  editTask: function(eventArgs){
-    console.log("Edit", eventArgs);
+  editTask: function(view){
+    this.tasks.trigger("edit:mode:on",{view: view});
+    this.listenToOnce(view,"update:item", function(eventArgs){
+      
+      RootApp.API.Model.saveTask(eventArgs.view.model);
+    });
 
   },
 

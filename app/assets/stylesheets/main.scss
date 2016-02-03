@@ -47,6 +47,20 @@ a.item-complete{
   text-decoration: line-through;
   color: #777; 
 }
+#list div[data-edit-mode='off']{
+  input{ display: none; }
+  a   { display: block; }
+  h4  { display: block }
+
+
+}
+
+#list div[data-edit-mode='on']{
+  input{display: block;}
+  a   { display: none;}
+  h4  { display: none }  
+
+}
 
 #list .row:hover .item-edit,
 #list .row:hover .item-delete,

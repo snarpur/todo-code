@@ -10,7 +10,6 @@ Backbone.sync = function(method, model, options) {
       if (beforeSend) { return beforeSend.apply(this, arguments); }
     };
   }
-  console.log("method", method);
   if(method == "delete" || method == "update"){
     var modelUrl = model.url;
     if(modelUrl.split("/").length < 3) 

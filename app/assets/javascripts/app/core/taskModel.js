@@ -27,14 +27,14 @@ RootApp.API.Model = {
   },
 
   
-  saveTask: function(model, collection){
+  saveTask: function(model){
     var options = {
       success: function(model, response, xhr){
         console.log("success saving task");
       },
       error: function(){console.log("error saving task"); }
 
-    };
+    }
     model.save(model.attributes, options);
   }
 
