@@ -23,9 +23,9 @@ var RootApp = RootApp || {};
 
 $(function () {
   'use strict';
-  
+  if(!currentUser) return;
   RootApp.App.on('start', function () {
-    
+   
     var controller = new RootApp.Controller();
     controller.router = new RootApp.Router({
       controller: controller

@@ -10,9 +10,11 @@ Backbone.sync = function(method, model, options) {
       if (beforeSend) { return beforeSend.apply(this, arguments); }
     };
   }
-  if(method == "delete"){
+  console.log("method", method);
+  if(method == "delete" || method == "update"){
     var modelUrl = model.url;
-    model.url = modelUrl + "/" + model.get("id");
+    if(modelUrl.split("/").length < 3) 
+      model.url = modelUrl + "/" + model.get("id");
   }
   return Backbone._sync(method, model, options);
 };

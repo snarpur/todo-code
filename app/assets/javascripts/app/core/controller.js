@@ -19,11 +19,12 @@ RootApp.Controller = Backbone.Marionette.Object.extend({
   },
 
   showTasks: function(eventArgs){
-    var tasksView = new RootApp.TaskCollectionView({collection: eventArgs.collection});
-    RootApp.App.root.showChildView("list", tasksView);
+    this.tasksView = new RootApp.TaskCollectionView({collection: eventArgs.collection});
+    RootApp.App.root.showChildView("list", this.tasksView);
 
-    this.listenTo(tasksView, "childview:item:delete", this.deleteTask);
-    this.listenTo(tasksView, "childview:item:edit", this.editTask);
+    this.listenTo(this.tasksView, "childview:item:delete", this.deleteTask);
+    this.listenTo(this.tasksView, "childview:item:edit", this.editTask);
+    this.listenTo(this.tasksView, "childview:item:complete", this.completeTask);
   
   },
   
@@ -41,9 +42,10 @@ RootApp.Controller = Backbone.Marionette.Object.extend({
 
     this.listenToOnce(model, 'sync', function(){
       this.newTask();
+      this.tasks.add(model)
     });
 
-    RootApp.API.Model.saveTask(model, this.tasks);
+    RootApp.API.Model.saveTask(model);
 
   },
 
@@ -55,8 +57,15 @@ RootApp.Controller = Backbone.Marionette.Object.extend({
   deleteTask: function(eventArgs){
     var model = eventArgs.model;
     model.destroy({wait: true});
-    console.log("DELETE", eventArgs.model);
+  
+  },
 
+  completeTask: function(eventArgs){
+    var model = eventArgs.model;
+    RootApp.API.Model.saveTask(model);
+  
   }
+
+
 
 });

@@ -7,33 +7,55 @@
   margin-bottom: 10rem;
 }
 
-#footer{
-  background-color: #fafafa;
-}
-
-#main{
-  border: solid 1px #555;
+.sign-in{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 #list{
   background-color: #fafafa;
 }
+
 .item-edit,
-.item-delete{
+.item-delete,
+.item-complete{
   visibility: hidden;
 }
+
 a.item-delete{
   float: left;
   text-decoration: none;
   color: floralWhite;
   background-color: tomato;
   padding: 1rem;
+  margin-right: 1px;
 }
+
+a.item-complete{
+  float: left;
+  text-decoration: none;
+  color: floralwhite;
+  background-color: mediumseagreen;
+  padding: 1rem;
+}
+
 .item-ctrl a{ 
   margin-right: .1rem;
 }
 
+.status-completed h4{
+  text-decoration: line-through;
+  color: #777; 
+}
+
 #list .row:hover .item-edit,
-#list .row:hover .item-delete{
+#list .row:hover .item-delete,
+#list .row:hover .item-complete{
  visibility: visible;
+}
+
+.status-completed.row .item-edit,
+.status-completed.row .item-delete,
+.status-completed.row .item-complete{
+  visibility: hidden !important;
 }

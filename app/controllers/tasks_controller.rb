@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_completed_date, only: [:update]
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.where(:user_id => current_user.id)
   end
 
   # GET /tasks/1
@@ -25,7 +25,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.user_id = current_user.id
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
@@ -41,6 +41,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
+      logger.debug @task.inspect
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
@@ -65,6 +66,12 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def set_completed_date
+      if params[:date_completed]
+        @task.date_completed = params[:date_completed].to_date
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

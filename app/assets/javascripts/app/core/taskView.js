@@ -32,20 +32,49 @@ var RootApp = RootApp|| {};
 
   RootApp.TaskItemView = Backbone.Marionette.ItemView.extend({
     template: "#task-item-view",
-    className: 'row',
+    className: function(){
+        if(_.isNull(this.model.get("date_completed"))){
+          return "row"; 
+        }
+        else{
+          return "row status-completed";
+        }
+        
+    },
     ui: {
       itemDelete: ".item-delete",
-      itemEdit: ".item-edit" 
+      itemEdit: ".item-edit", 
+      itemComplete: ".item-complete" 
     },
 
     triggers:{
       "click @ui.itemDelete": "item:delete",
-      "click @ui.itemEdit": "item:Edit",
+      "click @ui.itemEdit": "item:edit",
+      "click @ui.itemComplete": "item:complete"
+    },
+
+    modelEvents:{
+      "sync": "modelSynced"
+    },
+
+    modelSynced: function(){
+      console.log("syncing model")
+      this.trigger("model:synced");
     },
     
-    onItemDelete: function(){
-      console.log("in item viow");
+    pad: function (number) {
+      if (number < 10) {
+        return '0' + number;
+      }
+      return number;
     },
+
+    onItemComplete: function(){
+      var date = new Date();
+      var dateStr = date.getFullYear()+ "" + this.pad(date.getMonth() + 1) + "" + this.pad(date.getDate());
+      this.model.set("date_completed", dateStr);
+    },
+
     serializeData: function(){
       return this.model.attributes;
     }
@@ -55,14 +84,15 @@ var RootApp = RootApp|| {};
   RootApp.TaskCollectionView = Backbone.Marionette.CollectionView.extend({
     collection: RootApp.TaskCollection,
     childView: RootApp.TaskItemView,
-    childEvents:{
-      "item:delete": "onItemDelete",
-      "item:edit": "onItemEdit"
+    childEvents: {
+    'model:synced': 'onChildViewModelSynced'
     },
     
-    onItemDelete: function(){
-      console.log("thi is the collection");
-    }
+    onChildViewModelSynced: function(){
+      this.render();
+    },
+
+
 
 
   });

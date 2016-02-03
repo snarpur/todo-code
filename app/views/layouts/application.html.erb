@@ -8,12 +8,37 @@
 </head>
 <body>
   <div class="container" id="task-app">
+    <div class="sign-in row">
+    
+      <% if signed_in? %>
+        <div class="six columns">
+          Signed in as: <%= current_user.email %>
+        </div>
+        <div class="six columns">
+          <span class="u-pull-right">
+            <%= button_to 'Sign out', sign_out_path, method: :delete %>
+          </span>
+        </div>
+      <% else %>
+        <%= link_to 'Sign in', sign_in_path %>
+      <% end %>
+
+      <div id="flash">
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+      </div>
+    </div>
+
     <div class="row" id="header">
       <h1>the devil finds work for idle hands</h1>
     </div>
 
+    <div class="row">
+     <%= yield %>
+    </div>
     <div class="row" id="form">
-      
+ 
     </div>
     <div class="row" id="list">
       
@@ -25,7 +50,12 @@
     
   </div>
 
-<%= yield %>
+  <script type="text/javascript">
+  var currentUser;
+  <% if signed_in? %>
+    currentUser = "<%= current_user.email %>"
+  <% end %>
+  </script>
   <%= javascript_include_tag 'application' %>
 </body>
 </html>

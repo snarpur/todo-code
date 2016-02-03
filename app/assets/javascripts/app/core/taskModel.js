@@ -6,7 +6,8 @@ RootApp.TaskModel = Backbone.Model.extend({
 
 RootApp.TaskCollection = Backbone.Collection.extend({
   model : RootApp.TaskModel,
-  url : "/tasks"
+  url : "/tasks",
+  comparator: 'created_at'
 });
 
 RootApp.API.Model = {
@@ -29,12 +30,12 @@ RootApp.API.Model = {
   saveTask: function(model, collection){
     var options = {
       success: function(model, response, xhr){
-        collection.add(model);
+        console.log("success saving task");
       },
-      error: function(){console.log("error saving task") }
+      error: function(){console.log("error saving task"); }
 
     };
-    model.save(model.attributes ,options);
+    model.save(model.attributes, options);
   }
 
 
